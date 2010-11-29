@@ -83,7 +83,7 @@ abstract class Simulator extends Object {
 		if ($break) $this->printBreak();
 	}
 	
-	protected function printBreak($numberBreaks = 1) {
-		print str_repeat("\n", $numberBreaks);
+	protected function printBreak($number = 1) {
+		print str_repeat("\n", $number);
 	}
 }

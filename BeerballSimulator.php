@@ -73,8 +73,8 @@ class BeerballSimulator extends Simulator {
 			$this->printData(sprintf('Team %d', $number));
 			foreach ($Team->getPlayers() as $number => $Player) {
 				$this->printData(sprintf('Player %d: %d throw%s, %d hit%s',
-					$Player->getNumber(), $throws = $Player->getNumberThrows(), $throws != 1 ? 's' : '',
-					$hits = $Player->getNumberHits(), $hits != 1 ? 's' : ''));
+					$Player->getNumber(), $throws = $Player->getThrows(), $throws != 1 ? 's' : '',
+					$hits = $Player->getHits(), $hits != 1 ? 's' : ''));
 			}
 			$this->printBreak();
 		}

@@ -16,14 +16,14 @@ class Beerball extends Game {
 	
 	protected function playRound() {
 		$this->setRound($this->getCurrentRound(), 'attacker', array(
-			'throw' => $throw = $this->getAttackingPlayer()->throwBall()
+			'throw' => $hit = $this->getAttackingPlayer()->throwBall()
 		));
 		$this->setRound($this->getCurrentRound(), 'defender', array(
 			'Team' => clone $this->getDefendingTeam(),
 			'Player' => clone $this->getDefendingPlayer()
 		));
 		
-		if ($throw) {
+		if ($hit) {
 			$this->setRound($this->getCurrentRound(), 'defender', array(
 				'runningTime' => $runningTime = $this->getDefendingPlayer()->runForBall()
 			));
