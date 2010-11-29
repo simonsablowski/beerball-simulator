@@ -21,8 +21,7 @@ class BeerballSimulator extends Simulator {
 				$nsk = count($Player->getSkills());
 				$m = 1;
 				foreach ($Player->getSkills() as $name => $value) {
-					$skillName = $name . 'Skill';
-					$Skill = new $skillName;
+					$Skill = new $name;
 					$this->printData(sprintf('%s: %03d/%03d%s', $name, $value, $Skill->getMaximum(), $m < $nsk ? ', ' : ''), FALSE);
 					$m++;
 				}
