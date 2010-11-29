@@ -1,7 +1,7 @@
 <?php
 
 class BeerballSimulator extends Simulator {
-	protected $skills = array(
+	protected static $skills = array(
 		'ThrowingAccuracy',
 		'RunningSpeed',
 		'DrinkingSpeed',
@@ -26,7 +26,8 @@ class BeerballSimulator extends Simulator {
 				$nsk = count($Player->getSkills());
 				$m = 1;
 				foreach ($Player->getSkills() as $name => $value) {
-					$Skill = new $name();
+					$skillName = $name . 'Skill';
+					$Skill = new $skillName;
 					$this->printData(sprintf('%s: %03d/%03d%s', $name, $value, $Skill->getMaximum(), $m < $nsk ? ', ' : ''), FALSE);
 					$m++;
 				}
@@ -98,12 +99,16 @@ class BeerballSimulator extends Simulator {
 	protected function getSetUpTeam($number) {
 		$Team = new BeerballTeam($number);
 		
-		for ($i = 0; $i < $this->getNumberPlayersPerTeam(); $i++) {
+		for ($i = 0; $i < $this->getPlayersPerTeam(); $i++) {
 			$skills = !is_null($this->getPostedSkill($number, $i)) ? $this->getPostedSkill($number, $i) : $this->getRandomSkill($number, $i);
 			$Team->addPlayer(new BeerballPlayer($skills));
 		}
 		
 		return $Team;
+	}
+	
+	public static function getSkills() {
+		return self::$skills;
 	}
 	
 	protected function getBeerball() {

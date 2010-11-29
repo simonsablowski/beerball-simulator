@@ -1,23 +1,24 @@
 <?php
 
 abstract class Simulator {
-	protected $Skills = array(
+	protected static $skills = array(
 		'ReactionTime'
 	);
-	protected $numberPlayersPerTeam = 1;
+	protected $playersPerTeam = 1;
 	protected $Team1;
 	protected $Team2;
 	protected $randomSkills = array();
 	protected $postedSkills = array();
 	
-	public function __construct($numberPlayersPerTeam = 1, $postedSkills = NULL) {
-		$this->setNumberPlayersPerTeam($numberPlayersPerTeam);
+	public function __construct($playersPerTeam = 1, $postedSkills = NULL) {
+		$this->setPlayersPerTeam($playersPerTeam);
 		if (is_array($postedSkills)) $this->setPostedSkills($postedSkills);
 		
 		foreach ($this->getSkills() as $name) {
-			$Skill = new $name();
+			$skillName = $name . 'Skill';
+			$Skill = new $skillName;
 			
-			for ($i = 0; $i < $this->getNumberPlayersPerTeam(); $i++) {
+			for ($i = 0; $i < $this->getPlayersPerTeam(); $i++) {
 				$this->setRandomSkill(1, $i, array($name => rand($Skill->getMinimum(), $Skill->getMaximum())));
 				$this->setRandomSkill(2, $i, array($name => rand($Skill->getMinimum(), $Skill->getMaximum())));
 			}
@@ -29,12 +30,12 @@ abstract class Simulator {
 	
 	abstract public function run();
 	
-	protected function getSkills() {
-		return $this->skills;
+	public static function getSkills() {
+		return self::$skills;
 	}
 	
-	protected function getNumberPlayersPerTeam() {
-		return $this->numberPlayersPerTeam;
+	protected function getPlayersPerTeam() {
+		return $this->playersPerTeam;
 	}
 	
 	protected function getTeam1() {
@@ -76,8 +77,8 @@ abstract class Simulator {
 		return $Team;
 	}
 	
-	protected function setNumberPlayersPerTeam($numberPlayersPerTeam) {
-		$this->numberPlayersPerTeam = $numberPlayersPerTeam;
+	protected function setPlayersPerTeam($playersPerTeam) {
+		$this->playersPerTeam = $playersPerTeam;
 	}
 	
 	protected function setTeam1($Team1) {
@@ -100,7 +101,7 @@ abstract class Simulator {
 		}
 	}
 	
-	protected function setPostedSkills($postedSkills) {
+	public function setPostedSkills($postedSkills) {
 		$this->postedSkills = $postedSkills;
 	}
 	
