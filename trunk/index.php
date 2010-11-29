@@ -17,14 +17,12 @@ if ($submitted = isset($_POST['submit'])) {
 	
 	for ($i = 0; $i < $playersPerTeam; $i++) {
 		foreach ($_POST['skills'][1][$i] as $name => $value) {
-			$skillName = $name . 'Skill';
-			$Skill = new $skillName;
+			$Skill = new $name;
 			$postedSkills[1][$i][$name] = min($Skill->getMaximum(), max($Skill->getMinimum(), (int)$value));
 		}
 		
 		foreach ($_POST['skills'][2][$i] as $name => $value) {
-			$skillName = $name . 'Skill';
-			$Skill = new $skillName;
+			$Skill = new $name;
 			$postedSkills[2][$i][$name] = min($Skill->getMaximum(), max($Skill->getMinimum(), (int)$value));
 		}
 	}

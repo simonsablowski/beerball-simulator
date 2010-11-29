@@ -16,8 +16,7 @@ abstract class Simulator {
 		if (is_array($postedSkills)) $this->setPostedSkills($postedSkills);
 		
 		foreach ($this->getSkills() as $name) {
-			$skillName = $name . 'Skill';
-			$Skill = new $skillName;
+			$Skill = new $name;
 			
 			for ($i = 0; $i < $this->getPlayersPerTeam(); $i++) {
 				$this->setRandomSkill(1, $i, array($name => rand($Skill->getMinimum(), $Skill->getMaximum())));
