@@ -8,9 +8,18 @@ class Player extends Object {
 		if (is_array($skills)) $this->setSkills($skills);
 	}
 	
+	protected function getActionsResult($skillName, $minimum, $maximum) {
+		$Skill = new $skillName;
+		$gradient = ($maximum - $minimum) / ($Skill->getMaximum() - $Skill->getMinimum());
+		$intercept = $minimum - $gradient * $Skill->getMinimum();
+		
+		return $gradient * $this->getSkill($skillName) + $intercept;
+	}
+	
 	public function delay() {
-		$delay = 1 - 0.0091 * ($this->getSkill('ReactionTime') - 1);
+		$delay = $this->getActiosResult('ReactionTime', 0.5, 1);
 		$delay += $delay * 0.2 * (rand(0, 1) - 0.5);
+		
 		return $delay;
 	}
 	

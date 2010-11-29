@@ -9,8 +9,8 @@ class Team extends Object {
 	}
 	
 	public function __clone() {
-		foreach ($this->getPlayers() as $Player) {
-			$this->addPlayer(clone $Player);
+		foreach ($this->players as $number => $Player) {
+			$this->players[$number] = clone $Player;
 		}
 	}
 	
