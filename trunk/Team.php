@@ -1,6 +1,6 @@
 <?php
 
-class Team {
+class Team extends Object {
 	protected $number;
 	protected $players = array();
 	
@@ -9,29 +9,17 @@ class Team {
 	}
 	
 	public function __clone() {
-		foreach ($this->players as $number => $Player) {
-			$this->players[$number] = clone $Player;
+		foreach ($this->getPlayers() as $Player) {
+			$this->addPlayer(clone $Player);
 		}
-	}
-	
-	public function getNumber() {
-		return $this->number;
 	}
 	
 	public function getPlayer($number) {
 		return isset($this->players[$number]) ? $this->players[$number] : NULL;
 	}
 	
-	public function getPlayers() {
-		return $this->players;
-	}
-	
 	public function getNumberPlayers() {
 		return count($this->getPlayers());
-	}
-	
-	protected function setNumber($number) {
-		$this->number = $number;
 	}
 	
 	public function addPlayer($Player) {

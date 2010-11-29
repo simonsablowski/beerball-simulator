@@ -1,7 +1,7 @@
 <?php
 
-class Player {
-	protected $skills;
+class Player extends Object {
+	protected $skills = array();
 	protected $number;
 	
 	public function __construct($skills = NULL) {
@@ -14,27 +14,11 @@ class Player {
 		return $delay;
 	}
 	
-	public function getSkills() {
-		return $this->skills;
-	}
-	
 	public function getSkill($skill) {
 		return isset($this->skills[$skill]) ? $this->skills[$skill] : NULL;
 	}
 	
-	public function getNumber() {
-		return $this->number;
-	}
-	
-	public function setSkills($skills) {
-		$this->skills = $skills;
-	}
-	
 	public function setSkill($skill, $value) {
 		$this->skills[$skill] = $value;
-	}
-	
-	public function setNumber($number) {
-		$this->number = $number;
 	}
 }

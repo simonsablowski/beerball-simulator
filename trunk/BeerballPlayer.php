@@ -32,18 +32,6 @@ class BeerballPlayer extends Player {
 		return $this->getBeerLevel() <= 0;
 	}
 	
-	public function getBeerLevel() {
-		return $this->beerLevel;
-	}
-	
-	public function getNumberHits() {
-		return $this->numberHits;
-	}
-	
-	public function getNumberThrows() {
-		return $this->numberThrows;
-	}
-	
 	protected function decreaseBeerLevel($amount) {
 		$this->setBeerLevel($this->getBeerLevel() - $amount);
 	}
@@ -54,17 +42,5 @@ class BeerballPlayer extends Player {
 	
 	protected function increaseNumberThrows() {
 		$this->setNumberThrows($this->getNumberThrows() + 1);
-	}
-	
-	protected function setBeerLevel($beerLevel) {
-		$this->beerLevel = $beerLevel;
-	}
-	
-	protected function setNumberHits($numberHits) {
-		$this->numberHits = $numberHits;
-	}
-	
-	protected function setNumberThrows($numberThrows) {
-		$this->numberThrows = $numberThrows;
 	}
 }

@@ -22,8 +22,4 @@ class RockPaperScissors extends Game {
 	protected function getOption($option) {
 		return isset($this->options[$option]) ? $this->options[$option] : NULL;
 	}
-	
-	protected function getOptions() {
-		return $this->options;
-	}
 }
