@@ -2,14 +2,6 @@
 
 error_reporting(E_ALL);
 
-$skills = array(
-	'ThrowingAccuracy',
-	'RunningSpeed',
-	'DrinkingSpeed',
-	'ReactionTime',
-	'Dexterity'
-);
-
 include_once 'Game/Game.php';
 include_once 'Game/Beerball.php';
 include_once 'Game/RockPaperScissors.php';
@@ -21,18 +13,26 @@ include_once 'Game/Simulator.php';
 include_once 'Game/BeerballSimulator.php';
 include_once 'Game/Skill.php';
 
+$skills = array(
+	'ThrowingAccuracy',
+	'RunningSpeed',
+	'DrinkingSpeed',
+	'ReactionTime',
+	'Dexterity'
+);
+
 foreach ($skills as $skill) {
 	include_once 'Skills/' . $skill . '.php';
 }
 
-$run = TRUE;
+$autoRun = isset($_REQUEST['autoRun']) ? (bool)$_REQUEST['autoRun'] : TRUE;
+$playersPerTeam = isset($_REQUEST['playersPerTeam']) ? (int)$_REQUEST['playersPerTeam'] : 1;
 
-$numberPlayersPerTeam = isset($_REQUEST['numberPlayersPerTeam']) ? $_REQUEST['numberPlayersPerTeam'] : 1;
-
+$postedSkills = NULL;
 if ($submitted = isset($_POST['submit'])) {
 	$postedSkills = array();
 	
-	for ($i = 0; $i < $numberPlayersPerTeam; $i++) {
+	for ($i = 0; $i < $playersPerTeam; $i++) {
 		foreach ($_POST['skills'][1][$i] as $name => $value) {
 			$Skill = new $name();
 			$postedSkills[1][$i][$name] = min($Skill->getMaximum(), max($Skill->getMinimum(), (int)$value));
@@ -43,8 +43,6 @@ if ($submitted = isset($_POST['submit'])) {
 			$postedSkills[2][$i][$name] = min($Skill->getMaximum(), max($Skill->getMinimum(), (int)$value));
 		}
 	}
-} else {
-	$postedSkills = NULL;
 }
 
 ?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.ddd">
@@ -55,8 +53,8 @@ if ($submitted = isset($_POST['submit'])) {
 	</head>
 	<body>
 		<div>
-			<? if ($run || $submitted): ?>
-			<pre><? $Simulator = new BeerballSimulator($numberPlayersPerTeam, $postedSkills); $Simulator->run(); ?></pre>
+			<? if ($autoRun || $submitted): ?>
+			<pre><? $Simulator = new BeerballSimulator($playersPerTeam, $postedSkills); $Simulator->run(); ?></pre>
 			<? else: ?>
 			<form action="index.php" method="post">
 				<? foreach ($skills as $skill): ?>
@@ -66,13 +64,13 @@ if ($submitted = isset($_POST['submit'])) {
 					</legend>
 					<p>
 						<strong>Team 1</strong>:
-						<? for ($i = 0; $i < $numberPlayersPerTeam; $i++): ?>
+						<? for ($i = 0; $i < $playersPerTeam; $i++): ?>
 						<input type="text" name="skills[1][0][<? echo $skill; ?>]" value=""/>
 						<? endfor; ?>
 					</p>
 					<p>
 						<strong>Team 2</strong>:
-						<? for ($i = 0; $i < $numberPlayersPerTeam; $i++): ?>
+						<? for ($i = 0; $i < $playersPerTeam; $i++): ?>
 						<input type="text" name="skills[2][0][<? echo $skill; ?>]" value=""/>
 						<? endfor; ?>
 					</p>
