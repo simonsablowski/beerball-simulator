@@ -1,7 +1,7 @@
 <?php
 
 abstract class Simulator {
-	protected static $skills = array(
+	protected $skills = array(
 		'ReactionTime'
 	);
 	protected $playersPerTeam = 1;
@@ -30,8 +30,8 @@ abstract class Simulator {
 	
 	abstract public function run();
 	
-	public static function getSkills() {
-		return self::$skills;
+	public function getSkills() {
+		return $this->skills;
 	}
 	
 	protected function getPlayersPerTeam() {

@@ -1,7 +1,7 @@
 <?php
 
 class BeerballSimulator extends Simulator {
-	protected static $skills = array(
+	protected $skills = array(
 		'ThrowingAccuracy',
 		'RunningSpeed',
 		'DrinkingSpeed',
@@ -105,10 +105,6 @@ class BeerballSimulator extends Simulator {
 		}
 		
 		return $Team;
-	}
-	
-	public static function getSkills() {
-		return self::$skills;
 	}
 	
 	protected function getBeerball() {
