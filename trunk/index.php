@@ -52,13 +52,13 @@ $Simulator->setTeam2($Simulator->getSetUpTeam(2));
 					</legend>
 					<p>
 						<strong>Team 1</strong>:
-						<? for ($i = 0; $i < $playersPerTeam; $i++): ?>
+						<? for ($i = 1; $i <= $playersPerTeam; $i++): ?>
 						<input type="text" name="skills[1][<? echo $i; ?>][<? echo $skill; ?>]" value=""/>
 						<? endfor; ?>
 					</p>
 					<p>
 						<strong>Team 2</strong>:
-						<? for ($i = 0; $i < $playersPerTeam; $i++): ?>
+						<? for ($i = 1; $i <= $playersPerTeam; $i++): ?>
 						<input type="text" name="skills[2][<? echo $i; ?>][<? echo $skill; ?>]" value=""/>
 						<? endfor; ?>
 					</p>
