@@ -8,10 +8,7 @@ class Beerball extends Game {
 		$this->setAttackingTeam($this->getBeginner());
 		$this->setDefendingTeam($this->getAttackingTeam() == $this->getTeam1() ? $this->getTeam2() : $this->getTeam1());
 		
-		while (!$this->isOver()) {
-			$this->playRound();
-			$this->increaseCurrentRound();
-		}
+		parent::start();
 	}
 	
 	protected function playRound() {
