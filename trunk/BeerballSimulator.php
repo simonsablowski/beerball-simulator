@@ -88,7 +88,7 @@ class BeerballSimulator extends Simulator {
 	}
 	
 	public function getSetUpTeam($number) {
-		$Team = new BeerballTeam($number);
+		$Team = new Team($number);
 		
 		for ($i = 1; $i <= $this->getPlayersPerTeam(); $i++) {
 			$skills = !is_null($this->getPostedSkill($number, $i)) ? $this->getPostedSkill($number, $i) : $this->getRandomSkill($number, $i);
