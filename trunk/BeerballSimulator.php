@@ -44,7 +44,7 @@ class BeerballSimulator extends Simulator {
 		
 		foreach ($this->getGame()->getRounds() as $number => $round) {
 			$this->printData(sprintf('Round %d', $number));
-			$hit = $round['attacker']['throw'];
+			$hit = $round['attacker']['hit'];
 			$runningTime = $hit ? $round['defender']['runningTime'] : NULL;
 			$this->printData(sprintf('Team %d is the attacking team.', $round['attacker']['Team']->getNumber()));
 			$this->printData(sprintf('Player %d/%d %s the target.',
@@ -53,7 +53,7 @@ class BeerballSimulator extends Simulator {
 				$this->printData(sprintf('Player %d/%d runs for the ball which takes him %.2f seconds.',
 					$round['defender']['Team']->getNumber(), $round['defender']['Player']->getNumber(), $runningTime));
 				$this->printData(sprintf('Within these %.2f seconds, the players of Team %d decrease their beer: ',
-					$runningTime, $round['defender']['Team']->getNumber()));
+					$runningTime, $round['attacker']['Team']->getNumber()));
 				foreach ($round['attacker']['drinking'] as $playerNumber => $amount) {
 					$this->printData(sprintf('Player %d/%d: %.2f%% (leaving %.2f%%)',
 						$round['attacker']['Team']->getNumber(), $playerNumber, $amount,
