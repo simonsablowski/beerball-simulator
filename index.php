@@ -15,7 +15,7 @@ $postedSkills = NULL;
 if ($submitted = isset($_POST['submit'])) {
 	$postedSkills = array();
 	
-	for ($i = 0; $i < $playersPerTeam; $i++) {
+	for ($i = 1; $i <= $playersPerTeam; $i++) {
 		foreach ($_POST['skills'][1][$i] as $name => $value) {
 			$Skill = new $name;
 			$postedSkills[1][$i][$name] = min($Skill->getMaximum(), max($Skill->getMinimum(), (int)$value));
