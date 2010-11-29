@@ -8,18 +8,13 @@ class BeerballSimulator extends Simulator {
 		'ReactionTime',
 		'Dexterity'
 	);
-	protected $Beerball;
-	protected $RockPaperScissors;
+	protected $RockPaperScissorsSimulator;
 	
 	public function run() {
-		$this->setRockPaperScissors(new RockPaperScissors($this->getTeam1(), $this->getTeam2()));
-		$this->getRockPaperScissors()->start();
-		
-		$this->setBeerball(new Beerball($this->getTeam1(), $this->getTeam2()));
-		$this->getBeerball()->setBeginner($this->getRockPaperScissors()->getWinner());
+		$this->setGame(new Beerball($this->getTeam1(), $this->getTeam2()));
 		
 		$this->printHeadline('Teams');
-		foreach ($this->getBeerball()->getTeams() as $number => $Team) {
+		foreach ($this->getGame()->getTeams() as $number => $Team) {
 			$this->printData(sprintf('Team %d', $number));
 			foreach ($Team->getPlayers() as $number => $Player) {
 				$this->printData(sprintf('Player %d (', $Player->getNumber()), FALSE);
@@ -37,21 +32,18 @@ class BeerballSimulator extends Simulator {
 		}
 		$this->printBreak();
 		
-		$this->printHeadline('Rock Paper Scissors');
-		foreach ($this->getRockPaperScissors()->getRounds() as $number => $options) {
-			$this->printData(sprintf('Round %d', $number));
-			$this->printData(sprintf('Team 1: %s', $options[1]));
-			$this->printData(sprintf('Team 2: %s', $options[2]));
-			$this->printBreak();
-		}
-		$Winner = $this->getRockPaperScissors()->getWinner()->getNumber();
-		$this->printData(sprintf('The winner of Rock Paper Scissors is Team %d, so Team %d will begin the Beerball match.', $Winner, $Winner));
+		$this->setRockPaperScissorsSimulator(new RockPaperScissorsSimulator);
+		$this->getRockPaperScissorsSimulator()->run();
+		$Winner = $this->getRockPaperScissorsSimulator()->getGame()->getWinner();
+		
+		$this->getGame()->setBeginner($Winner->getNumber() == 1 ? $this->getTeam1() : $this->getTeam2());	
+		$this->printData(sprintf('Team %d will perform the first attack in the Beerball match.', $Winner->getNumber()));
 		$this->printBreak(2);
 		
-		$this->getBeerball()->start();
-		
 		$this->printHeadline('Beerball');
-		foreach ($this->getBeerball()->getRounds() as $number => $round) {
+		$this->getGame()->start();
+		
+		foreach ($this->getGame()->getRounds() as $number => $round) {
 			$this->printData(sprintf('Round %d', $number));
 			$hit = $round['attacker']['throw'];
 			$runningTime = $hit ? $round['defender']['runningTime'] : NULL;
@@ -74,11 +66,11 @@ class BeerballSimulator extends Simulator {
 		$this->printBreak();
 		
 		$this->printHeadline('Winner Team');
-		$this->printData(sprintf('Team %d is the glorious winner!', $this->getBeerball()->getWinner()->getNumber()));
+		$this->printData(sprintf('Team %d is the glorious winner!', $this->getGame()->getWinner()->getNumber()));
 		$this->printBreak(2);
 		
 		$this->printHeadline('Statistics');
-		foreach ($this->getBeerball()->getTeams() as $number => $Team) {
+		foreach ($this->getGame()->getTeams() as $number => $Team) {
 			$this->printData(sprintf('Team %d', $number));
 			foreach ($Team->getPlayers() as $number => $Player) {
 				$this->printData(sprintf('Player %d: %d throw%s, %d hit%s',
@@ -90,9 +82,9 @@ class BeerballSimulator extends Simulator {
 		$this->printBreak();
 		
 		$this->printHeadline('Beer Levels of Loser Team');
-		foreach ($this->getBeerball()->getLoser()->getPlayers() as $number => $Player) {
+		foreach ($this->getGame()->getLoser()->getPlayers() as $number => $Player) {
 			$this->printData(sprintf('Player %d/%d: %.2f%%',
-				$this->getBeerball()->getLoser()->getNumber(), $Player->getNumber(), max(0, $Player->getBeerLevel())));
+				$this->getGame()->getLoser()->getNumber(), $Player->getNumber(), max(0, $Player->getBeerLevel())));
 		}
 	}
 	
@@ -107,19 +99,11 @@ class BeerballSimulator extends Simulator {
 		return $Team;
 	}
 	
-	protected function getBeerball() {
-		return $this->Beerball;
+	protected function getRockPaperScissorsSimulator() {
+		return $this->RockPaperScissorsSimulator;
 	}
 	
-	protected function getRockPaperScissors() {
-		return $this->RockPaperScissors;
-	}
-	
-	protected function setBeerball($Beerball) {
-		$this->Beerball = $Beerball;
-	}
-	
-	protected function setRockPaperScissors($RockPaperScissors) {
-		$this->RockPaperScissors = $RockPaperScissors;
+	protected function setRockPaperScissorsSimulator($RockPaperScissorsSimulator) {
+		$this->RockPaperScissorsSimulator = $RockPaperScissorsSimulator;
 	}
 }

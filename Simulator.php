@@ -7,6 +7,7 @@ abstract class Simulator {
 	protected $playersPerTeam = 1;
 	protected $Team1;
 	protected $Team2;
+	protected $Game;
 	protected $randomSkills = array();
 	protected $postedSkills = array();
 	
@@ -46,6 +47,10 @@ abstract class Simulator {
 		return $this->Team2;
 	}
 	
+	protected function getGame() {
+		return $this->Game;
+	}
+	
 	protected function getRandomSkills() {
 		return $this->randomSkills;
 	}
@@ -69,7 +74,7 @@ abstract class Simulator {
 	protected function getSetUpTeam($number) {
 		$Team = new Team($number);
 		
-		for ($i = 0; $i < $this->getNumberPlayersPerTeam(); $i++) {
+		for ($i = 0; $i < $this->getPlayersPerTeam(); $i++) {
 			$skills = !is_null($this->getPostedSkill($number, $i)) ? $this->getPostedSkill($number, $i) : $this->getRandomSkill($number, $i);
 			$Team->addPlayer(new Player($skills));
 		}
@@ -87,6 +92,10 @@ abstract class Simulator {
 	
 	protected function setTeam2($Team2) {
 		$this->Team2 = $Team2;
+	}
+	
+	protected function setGame($Game) {
+		$this->Game = $Game;
 	}
 	
 	protected function setRandomSkills($randomSkills) {
