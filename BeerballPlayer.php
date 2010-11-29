@@ -7,7 +7,7 @@ class BeerballPlayer extends Player {
 	
 	public function throwBall() {
 		$this->increaseNumberThrows();
-		if ($success = $this->getSkill('ThrowingAccuracy') / 100 >= rand(0, 1)) $this->increaseNumberHits();
+		if ($success = $this->getSkill('ThrowingAccuracy') >= rand(1, 100)) $this->increaseNumberHits();
 		return $success;
 	}
 	
