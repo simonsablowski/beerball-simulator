@@ -1,14 +1,6 @@
 <?php
 
-abstract class Skill {
+abstract class Skill extends Object {
 	protected $minimum = 1;
 	protected $maximum = 100;
-	
-	public function getMinimum() {
-		return $this->minimum;
-	}
-	
-	public function getMaximum() {
-		return $this->maximum;
-	}
 }

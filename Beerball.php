@@ -80,20 +80,4 @@ class Beerball extends Game {
 		$this->setAttackingTeam($this->getDefendingTeam());
 		$this->setDefendingTeam($AttackingTeam);
 	}
-	
-	protected function getAttackingTeam() {
-		return $this->AttackingTeam;
-	}
-	
-	protected function getDefendingTeam() {
-		return $this->DefendingTeam;
-	}
-	
-	protected function setAttackingTeam($AttackingTeam) {
-		$this->AttackingTeam = $AttackingTeam;
-	}
-	
-	protected function setDefendingTeam($DefendingTeam) {
-		$this->DefendingTeam = $DefendingTeam;
-	}
 }

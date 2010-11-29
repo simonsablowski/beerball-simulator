@@ -97,12 +97,4 @@ class BeerballSimulator extends Simulator {
 		
 		return $Team;
 	}
-	
-	protected function getRockPaperScissorsSimulator() {
-		return $this->RockPaperScissorsSimulator;
-	}
-	
-	protected function setRockPaperScissorsSimulator($RockPaperScissorsSimulator) {
-		$this->RockPaperScissorsSimulator = $RockPaperScissorsSimulator;
-	}
 }

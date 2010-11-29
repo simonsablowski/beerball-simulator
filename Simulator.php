@@ -1,6 +1,6 @@
 <?php
 
-abstract class Simulator {
+abstract class Simulator extends Object {
 	protected $skills = array(
 		'ReactionTime'
 	);
@@ -30,38 +30,10 @@ abstract class Simulator {
 	
 	abstract public function run();
 	
-	public function getSkills() {
-		return $this->skills;
-	}
-	
-	protected function getPlayersPerTeam() {
-		return $this->playersPerTeam;
-	}
-	
-	protected function getTeam1() {
-		return $this->Team1;
-	}
-	
-	protected function getTeam2() {
-		return $this->Team2;
-	}
-	
-	protected function getGame() {
-		return $this->Game;
-	}
-	
-	protected function getRandomSkills() {
-		return $this->randomSkills;
-	}
-	
 	public function getRandomSkill($team, $player = NULL, $skill = NULL) {
 		if (is_null($player)) return isset($this->randomSkills[$team]) ? $this->randomSkills[$team] : NULL;
 		else if (is_null($skill)) return isset($this->randomSkills[$team][$player]) ? $this->randomSkills[$team][$player] : NULL;
 		else return isset($this->randomSkills[$team][$player][$skill]) ? $this->randomSkills[$team][$player][$skill] : NULL;
-	}
-	
-	protected function getPostedSkills() {
-		return $this->postedSkills;
 	}
 	
 	public function getPostedSkill($team, $player = NULL, $skill = NULL) {
@@ -79,22 +51,6 @@ abstract class Simulator {
 		}
 		
 		return $Team;
-	}
-	
-	protected function setPlayersPerTeam($playersPerTeam) {
-		$this->playersPerTeam = $playersPerTeam;
-	}
-	
-	protected function setTeam1($Team1) {
-		$this->Team1 = $Team1;
-	}
-	
-	protected function setTeam2($Team2) {
-		$this->Team2 = $Team2;
-	}
-	
-	protected function setGame($Game) {
-		$this->Game = $Game;
 	}
 	
 	protected function setRandomSkills($randomSkills) {
