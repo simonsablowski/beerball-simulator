@@ -13,14 +13,16 @@ abstract class Simulator extends Object {
 	
 	public function __construct($playersPerTeam = 1, $postedSkills = NULL) {
 		$this->setPlayersPerTeam($playersPerTeam);
-		if (is_array($postedSkills)) $this->setPostedSkills($postedSkills);
 		
-		foreach ($this->getSkills() as $name) {
-			$Skill = new $name;
-			
-			for ($i = 0; $i < $this->getPlayersPerTeam(); $i++) {
-				$this->setRandomSkill(1, $i, array($name => rand($Skill->getMinimum(), $Skill->getMaximum())));
-				$this->setRandomSkill(2, $i, array($name => rand($Skill->getMinimum(), $Skill->getMaximum())));
+		if (is_array($postedSkills)) {
+			$this->setPostedSkills($postedSkills);
+		} else {
+			foreach ($this->getSkills() as $name) {
+				$Skill = new $name;
+				for ($i = 1; $i <= $this->getPlayersPerTeam(); $i++) {
+					$this->setRandomSkill(1, $i, array($name => rand($Skill->getMinimum(), $Skill->getMaximum())));
+					$this->setRandomSkill(2, $i, array($name => rand($Skill->getMinimum(), $Skill->getMaximum())));
+				}
 			}
 		}
 		
@@ -42,19 +44,15 @@ abstract class Simulator extends Object {
 		else return isset($this->postedSkills[$team][$player][$skill]) ? $this->postedSkills[$team][$player][$skill] : NULL;
 	}
 	
-	protected function getSetUpTeam($number) {
+	public function getSetUpTeam($number) {
 		$Team = new Team($number);
 		
-		for ($i = 0; $i < $this->getPlayersPerTeam(); $i++) {
+		for ($i = 1; $i <= $this->getPlayersPerTeam(); $i++) {
 			$skills = !is_null($this->getPostedSkill($number, $i)) ? $this->getPostedSkill($number, $i) : $this->getRandomSkill($number, $i);
 			$Team->addPlayer(new Player($skills));
 		}
 		
 		return $Team;
-	}
-	
-	protected function setRandomSkills($randomSkills) {
-		$this->randomSkills = $randomSkills;
 	}
 	
 	protected function setRandomSkill($team, $player, $skill) {
@@ -65,15 +63,11 @@ abstract class Simulator extends Object {
 		}
 	}
 	
-	public function setPostedSkills($postedSkills) {
-		$this->postedSkills = $postedSkills;
-	}
-	
-	protected function setPostedSkill($team, $player, $Skill) {
+	protected function setPostedSkill($team, $player, $skill) {
 		if (!isset($this->postedSkills[$team][$player])) {
-			$this->postedSkills[$team][$player] = $Skill;
+			$this->postedSkills[$team][$player] = $skill;
 		} else {
-			$this->postedSkills[$team][$player] = array_merge_recursive($this->postedSkills[$team][$player], $Skill);
+			$this->postedSkills[$team][$player] = array_merge_recursive($this->postedSkills[$team][$player], $skill);
 		}
 	}
 	
