@@ -17,7 +17,7 @@ class Player extends Object {
 	}
 	
 	public function delay() {
-		$delay = $this->getActiosResult('ReactionTime', 0.5, 1);
+		$delay = $this->getActionsResult('ReactionTime', 0.5, 1);
 		$delay += $delay * 0.2 * (rand(0, 1) - 0.5);
 		
 		return $delay;
