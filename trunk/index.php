@@ -12,16 +12,16 @@ $playersPerTeam = isset($_REQUEST['playersPerTeam']) ? (int)$_REQUEST['playersPe
 $Simulator = new BeerballSimulator($playersPerTeam);
 
 $postedSkills = NULL;
-if ($submitted = isset($_POST['submit'])) {
+if ($submitted = isset($_REQUEST['submit'])) {
 	$postedSkills = array();
 	
 	for ($i = 1; $i <= $playersPerTeam; $i++) {
-		foreach ($_POST['skills'][1][$i] as $name => $value) {
+		foreach ($_REQUEST['skills'][1][$i] as $name => $value) {
 			$Skill = new $name;
 			$postedSkills[1][$i][$name] = min($Skill->getMaximum(), max($Skill->getMinimum(), (int)$value));
 		}
 		
-		foreach ($_POST['skills'][2][$i] as $name => $value) {
+		foreach ($_REQUEST['skills'][2][$i] as $name => $value) {
 			$Skill = new $name;
 			$postedSkills[2][$i][$name] = min($Skill->getMaximum(), max($Skill->getMinimum(), (int)$value));
 		}
