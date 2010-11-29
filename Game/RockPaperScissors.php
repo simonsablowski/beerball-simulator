@@ -4,7 +4,7 @@ class RockPaperScissors extends Game {
 	protected $options = array(
 		'Rock' => 'Scissors',
 		'Paper' => 'Rock',
-		'Scissors' => 'Paper',
+		'Scissors' => 'Paper'
 	);
 	
 	protected function playRound() {
