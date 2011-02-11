@@ -22,7 +22,7 @@ class Team extends Object {
 		return count($this->getPlayers());
 	}
 	
-	public function addPlayer($Player) {
+	public function addPlayer(Player $Player) {
 		$this->players[$number = $this->getNumberPlayers() + 1] = $Player;
 		$this->getPlayer($number)->setNumber($number);
 	}
