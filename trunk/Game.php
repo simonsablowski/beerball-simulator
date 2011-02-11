@@ -8,7 +8,7 @@ abstract class Game extends Object {
 	protected $rounds = array();
 	protected $currentRound = 1;
 	
-	public function __construct($Team1, $Team2) {
+	public function __construct(Team $Team1, Team $Team2) {
 		$this->setTeam1($Team1);
 		$this->setTeam2($Team2);
 	}
