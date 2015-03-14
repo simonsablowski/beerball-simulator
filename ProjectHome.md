@@ -1,0 +1,1 @@
+This little PHP application simulates a game of Beerball in a text version, including the initial Rock Paper Scissors and of course throwing, running and drinking beer. Two or more players can take part in a game.
