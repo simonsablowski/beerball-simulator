@@ -37,6 +37,11 @@ $Simulator->setTeam2($Simulator->getSetUpTeam(2));
 	<head>
 		<meta content="text/html; charset=UTF-8" http-equiv="Content-Type"/>
 		<title>Beerball Simulator</title>
+		<style type="text/css">
+		pre {
+			margin: 30px;
+		}
+		</style>
 	</head>
 	<body>
 		<div>
